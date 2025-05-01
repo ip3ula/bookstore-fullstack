@@ -1,0 +1,3 @@
+POST http://localhost:3001/api/users/favorites/67eb01d6feaa0417b687dce1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImlwM3VsYUBnbWFpbC5jb20iLCJpZCI6IjY4MDlmOWI0MDgyYzA2ZDA0Mzk0MTZkYiIsImlhdCI6MTc0NTU4NTM4OX0.XWS7ybIHu6ccOYP2apDOxIIGPXQgTrWXBk_jO_Y753w

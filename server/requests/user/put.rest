@@ -1,0 +1,7 @@
+PUT http://localhost:3001/api/users
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImlwM3VsYUBnbWFpbC5jb20iLCJpZCI6IjY4MDlmOWI0MDgyYzA2ZDA0Mzk0MTZkYiIsImlhdCI6MTc0NTUxNzczOX0.A80PnlhgYYCWoLl0XsiGeL7gCgpE_5SsrMjsbzZDaFU
+
+{
+    "merchant": true
+}

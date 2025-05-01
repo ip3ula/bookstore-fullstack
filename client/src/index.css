@@ -1,0 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Playwrite+RO:wght@100..400&display=swap');
+
+@import "tailwindcss";
+
+@theme {
+    --font-playwrite: "Playwrite RO", cursive;
+    --color-hotpink: #ef7c8e;
+    --color-cream: #fae8e0;
+    --color-spearmint: #b6e2d3;
+    --color-rosewater: #d8a7b1;
+}

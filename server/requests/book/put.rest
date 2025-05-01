@@ -1,0 +1,20 @@
+put http://localhost:3001/api/books/680a80023d8803e86f2401c3
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImlwM3VsYUBnbWFpbC5jb20iLCJpZCI6IjY4MDlmOWI0MDgyYzA2ZDA0Mzk0MTZkYiIsImlhdCI6MTc0NTUxNzczOX0.A80PnlhgYYCWoLl0XsiGeL7gCgpE_5SsrMjsbzZDaFU
+
+{
+  "title": "Around the World in Eighty Days",
+  "description": "An adventurous novel by Jules Verne about Phileas Fogg's attempt to circumnavigate the globe in 80 days to win a wager.",
+  "cover": "https://covers.openlibrary.org/b/id/8081660-L.jpg",
+  "author": "Jules Verne",
+  "language": "English",
+  "pageCount": 320,
+  "isbn": "9780140449068",
+  "publisher": "Pierre-Jules Hetzel",
+  "published": 1873,
+  "genres": ["Adventure", "Classic", "Fiction"],
+  "editors": true,
+  "awards": false,
+  "originalPrice": 6,
+  "price": 4
+}
