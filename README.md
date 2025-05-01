@@ -13,11 +13,11 @@ Welcome to the **Bookstore** project! This is a simple application designed to m
 
 Here are some screenshots of the application:
 
-![Screenshot 1](screenshot.png)
-![Screenshot 2](screenshot2.png)
-![Screenshot 3](screenshot3.png)
-![Screenshot 4](screenshot4.png)
-![Screenshot 5](screenshot5.png)
+![Screenshot 1](public/screenshot.png)
+![Screenshot 2](public/screenshot2.png)
+![Screenshot 3](public/screenshot3.png)
+![Screenshot 4](public/screenshot4.png)
+![Screenshot 5](public/screenshot5.png)
 
 ## Installation
 
