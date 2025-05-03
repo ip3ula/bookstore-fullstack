@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const baseUrl = 'http://localhost:3001/api/books'
+const baseUrl = `${import.meta.env.VITE_API_URL}/api/books` 
 
 export const getAll = async () => {
     const res = await axios.get(baseUrl)

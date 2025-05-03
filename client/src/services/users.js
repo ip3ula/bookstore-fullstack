@@ -1,5 +1,5 @@
 import axios from "axios";
-const baseurl = "http://localhost:3001/api/users"
+const baseurl = `${import.meta.env.VITE_API_URL}/api/users`
 
 const getUser = async (config) => {
     const req = await axios.get(baseurl, config)
