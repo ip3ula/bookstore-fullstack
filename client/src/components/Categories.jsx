@@ -69,10 +69,10 @@ const Categories = () => {
   ];
 
   return (
-    <div className="lg:flex lg:gap-10 max-w-7xl mx-auto px-4 py-10">
+    <div className="lg:flex lg:gap-10 max-w-7xl mx-auto">
       
       {/* Mobile Categories Bar */}
-      <div className="w-full h-15 flex items-center gap-2 overflow-x-auto sticky top-15 bg-cream z-10 px-5 sm:h-20 lg:hidden">
+      <div className="w-full h-15 flex items-center gap-2 overflow-x-auto sticky top-15 bg-cream z-10 px-5 sm:h-20 lg:hidden py-8">
         {categories.map(category => (
           <MobileButton
             key={category}
@@ -85,7 +85,7 @@ const Categories = () => {
 
       {/* Sidebar for Large Screens */}
       <aside className="hidden lg:block min-w-[220px] max-w-70">
-        <div className="bg-white border border-rose-100 rounded-xl shadow-sm p-4 sticky top-24">
+        <div className="bg-spearmint rounded-xl shadow-sm p-4 sticky top-24">
           <h3 className="font-semibold text-lg mb-3 text-hotpink">Browse Categories</h3>
           <div className="space-y-2">
             {categories.map(category => (
