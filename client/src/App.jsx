@@ -4,6 +4,7 @@ import { getAll } from './services/books';
 import userServices from './services/users';
 import { useEffect, useReducer } from 'react';
 
+import Nav from './components/Nav';
 import Home from './components/Home';
 import Search from './components/Search';
 import Login from './components/Login';
@@ -16,6 +17,7 @@ import Publish from './components/Publish'
 import MerchantBooks from './components/MerchantBooks'
 import Orders from './components/Orders';
 import BeAMerchant from './components/BeAMerchant';
+import DetailedBook from './components/DetailedBook';
 
 import CategoryContext from './CategoryContext';
 import UserContext from './UserContext';
@@ -140,6 +142,8 @@ function App() {
 
     <UserContext.Provider value={[user, userDispatch]}>
       <CategoryContext.Provider value={[state.filteredBooks, dispatch, state.allBooks]}>
+      <Nav />
+      <div className="pt-15">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/search" element={<Search />} />
@@ -153,7 +157,9 @@ function App() {
           <Route path="/merchant/books" element={<MerchantBooks />} />
           <Route path="/orders" element={<Orders />} />
           <Route path="/merchant/be" element={<BeAMerchant />} />
+          <Route path="books/:id" element={<DetailedBook />} />
         </Routes>
+        </div>
       </CategoryContext.Provider>
     </UserContext.Provider>
     </UserDataContext.Provider>

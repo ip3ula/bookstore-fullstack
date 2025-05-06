@@ -1,29 +1,25 @@
 const mongoose = require('mongoose')
 
 const bookSchema = new mongoose.Schema({
+    gutenberg_id: {
+        type: Number,
+        unique: true,
+        required: true
+    },
     title: String,
     description: String,
-    cover: String,
     author: String,
+    cover: String,
+    epub: String,
     views: { type: Number, default: 0 },
     weeklyView: { type: Number, default: 0},
     lastReset: { type: Date, default: Date.now },
-    purchased: { type: Number, default: 0},
     language: String,
-    pageCount: Number,
-    isbn: String,
-    publisher: String,
-    published: Number,
+    pageCount: { type: Number, default: 0 },
     addDate: { type: Date, default: Date.now },
-    genres: [String],
+    subjects: [String],
     editors: Boolean,
     awards: Boolean,
-    price: Number,
-    originalPrice: Number,
-    user: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User'
-    },
     rating: {
         average: {
             type: Number,
