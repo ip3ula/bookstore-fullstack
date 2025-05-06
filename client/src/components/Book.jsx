@@ -5,14 +5,15 @@ import { useContext } from "react"
  import userServices from '../services/users'
 import { Link } from "react-router-dom"
 
- const Book = ({ cover, id }) => {
+ const Book = ({ book }) => {
+    console.log(book)
      const [user] = useContext(UserContext)
      const [state] = useContext(UserDataContext)
  
      const queryClient = useQueryClient()
      
      const addMutation = useMutation({
-         mutationFn: () => userServices.addFav(id, {headers: {Authorization: `Bearer ${user.token}`}}),
+         mutationFn: () => userServices.addFav(book.id, {headers: {Authorization: `Bearer ${user.token}`}}),
          onSuccess: () => {
              queryClient.invalidateQueries('user')
          },
@@ -23,7 +24,7 @@ import { Link } from "react-router-dom"
      })
  
      const removeMutation = useMutation({
-         mutationFn: () => userServices.removeFav(id, {headers: {Authorization: `Bearer ${user.token}`}}),
+         mutationFn: () => userServices.removeFav(book.id, {headers: {Authorization: `Bearer ${user.token}`}}),
          onSuccess: () => {
              queryClient.invalidateQueries('user')
          },
@@ -34,11 +35,11 @@ import { Link } from "react-router-dom"
      
      if (!state) return null;
  
-     const find = state.favorites.some(book => book.id === id )
+     const find = state.favorites.some(book => book.id === book.id )
      return (
          <div className="w-30 h-45 min-w-30 *:font-bold relative">
-            <Link to={`/books/${id}`}>
-         <img className="w-30 h-45 rounded-md" src={cover} />
+            <Link to={`/books/${book.id}`}>
+         <img className="w-30 h-45 rounded-md" src={book.cover} />
          </Link>
          <svg onClick={() => {
              find 

@@ -7,6 +7,7 @@ const axios = require("axios");
 
 const Book = require("./models/book.js");
 const { MONGODB_URL } = require("./utils/config.js");
+const { PORT } = require("./utils/config.js");
 const { info, error } = require("./utils/logger.js");
 const { tokenExtractor, userExtractor, errorHandler } = require("./utils/mildware.js");
 
@@ -46,11 +47,12 @@ const fetchBooksFromGutenberg = async (page = 1) => {
           document: {
             gutenberg_id: book.id,
             title: book.title,
-            description: book.description || "",
+            description: book.summaries[0] || "",
             author: book.authors?.[0]?.name || "Unknown",
             cover: book.formats["image/jpeg"],
             epub: book.formats["application/epub+zip"],
             addDate: new Date(),
+            downloads: book["download_count"],
             subjects: book.subjects || [],
           },
         },
@@ -63,7 +65,7 @@ const fetchBooksFromGutenberg = async (page = 1) => {
     }
 
     if (response.data.next) {
-      setTimeout(() => fetchBooksFromGutenberg(page + 1), 500); // avoid API spam
+      setTimeout(() => fetchBooksFromGutenberg(page + 1), 500);
     } else {
       info("Finished fetching all books from Gutendex");
     }
@@ -75,11 +77,8 @@ const fetchBooksFromGutenberg = async (page = 1) => {
 const connectAndStart = async () => {
   try {
     await mongoose.connect(MONGODB_URL);
-    info("Connected to MongoDB");
-    app.listen(3001, () => {
-      info("Server running on port 3001");
-    });
-    fetchBooksFromGutenberg(); // run in background
+    info("Connected to MongoDB"); 
+    fetchBooksFromGutenberg();
   } catch (err) {
     error("Startup error:", err.message);
     process.exit(1);

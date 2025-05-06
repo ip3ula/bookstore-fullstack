@@ -13,6 +13,7 @@ const bookSchema = new mongoose.Schema({
     epub: String,
     views: { type: Number, default: 0 },
     weeklyView: { type: Number, default: 0},
+    downloads: Number,
     lastReset: { type: Date, default: Date.now },
     language: String,
     pageCount: { type: Number, default: 0 },

@@ -11,29 +11,13 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    merchant: {
-        type: Boolean,
-        default: false
-    },
-    books: [
-        {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'Book'
-        }
-    ],
     favorites: [
         {
             type: mongoose.Schema.Types.ObjectId,
             ref: 'Book'
         }
     ],
-    cart: [
-        {
-            type: mongoose.Schema.Types.ObjectId,
-        ref: 'Book'
-        }
-    ]
-
+    downloads: Number,
 });
 
 userSchema.set('toJSON', {

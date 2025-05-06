@@ -7,7 +7,7 @@ const { SECRET } = require('../utils/config');
 
 booksRouter.get('/', async (request, response, next) => {
   try {
-    const books = await Book.find({}).populate('user', { username: 1, name: 1 });
+    const books = await Book.find({})
     response.json(books);
   } catch (err) {
     next(err);
