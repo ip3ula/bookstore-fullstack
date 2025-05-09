@@ -1,8 +1,7 @@
 import { useEffect, useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { useMutation } from '@tanstack/react-query';
-import { login } from "../services/login";
-import UserContext from "../UserContext";
+import { login } from "../API/login";
 
 const Login = () => {
   const [email, setEmail] = useState('');

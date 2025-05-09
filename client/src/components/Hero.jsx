@@ -1,5 +1,4 @@
 import { useContext } from "react"
-import CategoryContext from "../CategoryContext"
 const Hero = () => {
     const [books] = useContext(CategoryContext)
     const book = [...books].sort((a, b) => b.weeklyView - a.weeklyView)[0]

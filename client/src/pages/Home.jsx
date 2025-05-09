@@ -1,13 +1,12 @@
-import Hero from "./Hero"
+import Hero from "../components/Hero"
 import Categories from "./Categories"
-import Nav from './Nav'
-import Footer from './Footer'
+import Footer from '../components/Footer'
 
 const Home = ({ books }) => {
     return (
         <div>
            
-            <Hero />
+            {/* <Hero /> */}
             {/* <section className="py-16 px-6 bg-rosewater text-center">
           <div className="max-w-6xl mx-auto grid gap-10 sm:grid-cols-3">
             {[

@@ -1,16 +1,13 @@
 import { useReducer, useContext, useState, useEffect } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
-import UserContext from "../UserContext";
-import UserDataContext from "../userDataContext";
 
 const NavLinks = ({ navDispatch }) => {
-  const [userData] = useContext(UserDataContext);
   const location = useLocation();
-  if (!userData) return null;
 
   const handleLinkClick = () => {
     navDispatch({ type: "HIDE" });  // Hide the menu when any link is clicked
   };
+  const userData = true
 
   return (
     <div className="flex flex-col sm:flex-row sm:items-center gap-10 text-3xl font-mono font-semibold pl-5 *:hover:text-hotpink sm:gap-5 *md:text-md *:sm:text-sm *:lg:text-lg z-60 sm:font-sans">
@@ -40,7 +37,7 @@ const UserMenu = ({ user, dispatch }) => {
 };
 
 const Nav = () => {
-  const [user, dispatch] = useContext(UserContext);
+  const user = true
   const [userData, setUserData] = useState(false);
   const navigate = useNavigate();
   const [scroll, setScroll] = useState(false);

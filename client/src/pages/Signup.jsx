@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
-import { addUser } from "../services/signup";
+import { addUser } from "../API/signup";
 import { useState } from "react";
 
 const Signup = () => {

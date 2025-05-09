@@ -5,14 +5,38 @@ const User = require('../models/user');
 const { info } = require('../utils/logger');
 const { SECRET } = require('../utils/config');
 
-booksRouter.get('/', async (request, response, next) => {
+booksRouter.get('/', async (req, res, next) => {
   try {
-    const books = await Book.find({})
-    response.json(books);
+    const { category = 'all', subcategory } = req.query;
+
+    let query = {}
+
+    if (category === 'nonfiction') {
+      query = {
+        subjects: { $not: /fiction/i }
+      };
+    } else if (category !== 'all') {
+      query = {
+        subjects: { $regex: new RegExp(category, 'i') }
+      };
+    }
+console.log('subcategory:', subcategory)
+    const sort = subcategory
+      ? { [subcategory]: -1 } 
+      : {}
+
+    const books = await Book.find(query)
+      .sort(sort)
+      .limit(20);
+
+    res.json(books);
   } catch (err) {
     next(err);
   }
 });
+
+
+
 
 booksRouter.get('/:id', async (request, response, next) => {
   try {

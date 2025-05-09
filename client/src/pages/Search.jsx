@@ -1,6 +1,5 @@
 import { useNavigate } from "react-router-dom";
 import { useState, useContext, useRef, useEffect } from "react";
-import CategoryContext from "../CategoryContext";
 
 const SearchItem = ({ title, onClick }) => {
   return (
