@@ -9,30 +9,29 @@ booksRouter.get('/', async (req, res, next) => {
   try {
     const { category = 'all', subcategory, search, limit = 20 } = req.query;
 
-    let query = {}
-    if (search) {
-      query = { 
-        title: { $regex: new RegExp(search, 'i') } 
-      }
+    let query = {};
 
-    if (category === 'nonfiction') {
-      query = {
-        subjects: { $not: /fiction/i }
-      };
-    } else if (category !== 'all') {
-      query = {
-        subjects: { $regex: new RegExp(category, 'i') }
-      };
+    if (search) {
+      query.title = { $regex: new RegExp(search, 'i') };
     }
-    const sort = subcategory
-      ? { [subcategory]: -1 } 
-      : {}
+
+    if (category !== 'all') {
+      query.subjects = { $regex: new RegExp(category, 'i') };
+    } else if (category === 'nonfiction') {
+      query.subjects = { $not: /fiction/i };
+    }
+
+    const sort = subcategory ? { [subcategory]: -1 } : {};
+
+    console.log('Query:', query);
+    console.log('Page:', page);
+    console.log('Limit:', limit);
+
     const books = await Book.find(query)
       .sort(sort)
       .limit(parseInt(limit, 10));
 
     res.json(books);
-  }
   } catch (err) {
     next(err);
   }

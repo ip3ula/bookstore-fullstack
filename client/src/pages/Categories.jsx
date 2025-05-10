@@ -49,7 +49,7 @@ const Categories = () => {
                 ))}
             </div>
             {isLoading && <Loading />}
-            <div>
+{isLoading ||             <div>
                 {subcategories.map(([name, data]) => (
                     <div className="border-b border-rosewater last:border-none p-3" key={name}>
                         <h2 className="font-bold text-xl py-5">{name}</h2>
@@ -60,7 +60,7 @@ const Categories = () => {
                         </div>
                     </div>
                 ))}
-            </div>
+            </div>}
         </div>
     );
 };
