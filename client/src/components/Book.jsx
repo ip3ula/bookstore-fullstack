@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { useFavorite } from "../hooks/useFavorite";
 
 const Book = ({ book }) => {
   const [isCoverValid, setIsCoverValid] = useState(true);
-
+  const { addFavorite, removeFavorite, isFavorite } = useFavorite();
   useEffect(() => {
     if (!book.cover) return setIsCoverValid(false);
 
@@ -27,12 +28,12 @@ const Book = ({ book }) => {
 
       <svg
         onClick={() => {
-          find
-            ? console.log("already in favorites")
-            : console.log("added to favorites");
+          isFavorite(book.id)
+            ? removeFavorite(book.id)
+            : addFavorite(book.id);
         }}
         className={`size-9 absolute top-2 right-2 rounded p-1 ${
-          find
+          isFavorite(book.id)
             ? "bg-spearmint text-stone-900 fill-stone-900"
             : "bg-hotpink text-white"
         }`}

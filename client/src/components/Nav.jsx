@@ -22,13 +22,17 @@ const NavLinks = ({ navDispatch }) => {
 };
 
 const UserMenu = ({ user, dispatch }) => {
+  const navigate = useNavigate();
   return (
     <div className="fixed w-full h-50 bg-spearmint z-30 shadow-md mt-15 p-5 flex flex-col items-center justify-start gap-2">
       <div className="bg-hotpink text-white text-4xl border-2 border-rosewater size-20 rounded-full flex items-center justify-center mx-auto">
         {user.name.trim()[0]}
       </div>
       <p className="text-center border-b border-rosewater pb-2 font-bold text-2xl">{user.name}</p>
-      <button className="hover:cursor-pointer font-semibold" onClick={() => dispatch(clearUser())}>
+      <button className="hover:cursor-pointer font-semibold" onClick={() => {
+        navigate('/')
+        dispatch(clearUser())
+      }}>
         Log out
       </button>
     </div>

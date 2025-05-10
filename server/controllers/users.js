@@ -29,12 +29,12 @@ usersRouter.get('/', async (req, res, next) => {
 
 usersRouter.post('/', async (request, response, next) => {
     try {
-        const { email, name, password, merchant } = request.body;
+        const { email, name, password } = request.body;
 
         const saltRounds = 10;
         const passwordHash = await bcrypt.hash(password, saltRounds);
 
-        const user = new User({ email, name, password: passwordHash, merchant });
+        const user = new User({ email, name, password: passwordHash });
         const savedUser = await user.save();
 
         response.json(savedUser);

@@ -1,9 +1,12 @@
-import { getUser } from "../API/users";
+import { getUser, removeFav, addFav } from "../API/users";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useSelector } from "react-redux";
 
 export const useFavorite = () => {
-  const { token } = useSelector((state) => state.user);
+  const userDate = useSelector((state) => state.user);
+  if (userDate) {
+    var token = userDate.token;
+  }
   const config = {
     headers: {
       Authorization: `Bearer ${token}`,
@@ -16,42 +19,25 @@ export const useFavorite = () => {
     queryFn: () => getUser(config),
   });
 
-  // Add to favorites
   const addFavoriteMutation = useMutation({
-    mutationFn: async (itemId) => {
-      // replace with actual API call to update favorites
-      const response = await fetch(`/api/favorites/add`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ itemId }),
-      });
-      if (!response.ok) throw new Error("Failed to add favorite");
-      return response.json();
-    },
+    mutationFn:(itemId) => addFav(itemId, config),
     onSuccess: () => {
       queryClient.invalidateQueries(['user']);
     }
   });
 
-  // Remove from favorites
   const removeFavoriteMutation = useMutation({
-    mutationFn: async (itemId) => {
-      const response = await fetch(`/api/favorites/remove`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ itemId }),
-      });
-      if (!response.ok) throw new Error("Failed to remove favorite");
-      return response.json();
-    },
+    mutationFn:(itemId) => removeFav(itemId, config),
     onSuccess: () => {
       queryClient.invalidateQueries(['user']);
     }
   });
 
   const isFavorite = (itemId) => {
-    return user?.favorites?.includes(itemId);
+    console.log('itemId',itemId)
+    return user?.favorites?.find(fav => fav.id === itemId) ? true : false;
   };
+  console.log('user?.favorites',user?.favorites)
 
   const addFavorite = (itemId) => {
     if (!isFavorite(itemId)) {

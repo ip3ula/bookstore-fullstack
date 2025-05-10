@@ -7,9 +7,13 @@ const { SECRET } = require('../utils/config');
 
 booksRouter.get('/', async (req, res, next) => {
   try {
-    const { category = 'all', subcategory } = req.query;
+    const { category = 'all', subcategory, search, limit = 20 } = req.query;
 
     let query = {}
+    if (search) {
+      query = { 
+        title: { $regex: new RegExp(search, 'i') } 
+      }
 
     if (category === 'nonfiction') {
       query = {
@@ -20,16 +24,15 @@ booksRouter.get('/', async (req, res, next) => {
         subjects: { $regex: new RegExp(category, 'i') }
       };
     }
-console.log('subcategory:', subcategory)
     const sort = subcategory
       ? { [subcategory]: -1 } 
       : {}
-
     const books = await Book.find(query)
       .sort(sort)
-      .limit(20);
+      .limit(parseInt(limit, 10));
 
     res.json(books);
+  }
   } catch (err) {
     next(err);
   }

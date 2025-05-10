@@ -9,7 +9,7 @@ const Favorite = () => {
     if (!state) return null; 
 
     const filtered = search 
-    ? state.favorites.filter(book => 
+    ? state.filter(book => 
         search && book.title.toLowerCase().includes(search.toLowerCase())
     )
     : state
@@ -27,8 +27,8 @@ const Favorite = () => {
             </div>
             <input value={search} onChange={(e) => setSearch(e.target.value)} type="text" className="border-2 rounded-4xl p-2 px-5 border-hotpink focus:outline-0 text-[10px] font-mono w-2/3 max-w-100" placeholder="Search favorite"/>
             </div>
-            <div className="m-5  gap-4 justify-items-center px-5 relative h-50 w-full flex flex-wrap">
-                {filtered.map(book => <Book key={book.id} id={book.id} cover={book.cover} />)}
+            <div className="m-5  gap-4 justify-center px-5 relative h-50 w-full flex flex-wrap">
+                {filtered.map(book => <Book key={book.id} id={book.id} book={book} />)}
             </div>
         </div>
     )
