@@ -6,15 +6,16 @@ import { clearUser } from "../store/slices/userSlice";
 
 const NavLinks = ({ navDispatch }) => {
   const location = useLocation();
+  const user = useSelector(state => state.user)
 
   const handleLinkClick = () => {
-    navDispatch({ type: "HIDE" });  // Hide the menu when any link is clicked
+    navDispatch({ type: "HIDE" });
   };
 
   return (
     <div className="flex flex-col sm:flex-row sm:items-center gap-10 text-3xl font-mono font-semibold pl-5 *:hover:text-hotpink sm:gap-5 *md:text-md *:sm:text-sm *:lg:text-lg z-60 sm:font-sans">
       <Link to="/" className={`${location.pathname === '/' ? 'text-hotpink' : ''}`} onClick={handleLinkClick}>Home</Link>
-      <Link to="/favorite" className={`${location.pathname === '/favorite' ? 'text-hotpink' : ''}`} onClick={handleLinkClick}>Favorites</Link>
+      {user && <Link to="/favorite" className={`${location.pathname === '/favorite' ? 'text-hotpink' : ''}`} onClick={handleLinkClick}>Favorites</Link>}
       <Link to="/about" className={`${location.pathname === '/about' ? 'text-hotpink' : ''}`} onClick={handleLinkClick}>About</Link>
       
     </div>

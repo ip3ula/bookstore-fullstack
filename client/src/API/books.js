@@ -12,3 +12,9 @@ export const getBook = async (id) => {
   const res = await axios.get(`${baseUrl}/${id}`);
   return res.data;
 };
+
+export const searchBooks = async (query) => {
+  const res = await axios.get(`${baseUrl}/?limit=7&search=${query}`);
+  console.log('query',query)
+  return res.data;
+}
