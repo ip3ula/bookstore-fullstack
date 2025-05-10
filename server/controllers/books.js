@@ -24,7 +24,6 @@ booksRouter.get('/', async (req, res, next) => {
     const sort = subcategory ? { [subcategory]: -1 } : {};
 
     console.log('Query:', query);
-    console.log('Page:', page);
     console.log('Limit:', limit);
 
     const books = await Book.find(query)
