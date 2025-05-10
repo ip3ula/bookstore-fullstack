@@ -1,18 +1,18 @@
 import { useNavigate } from "react-router-dom"
-import { useContext, useState } from "react"
+import { useState } from "react"
 import Book from "../components/Book"
+import { useFavorite } from "../hooks/useFavorite"
 const Favorite = () => {
     const [search, setSearch] = useState(null)
     const navigate = useNavigate()
-
-    const [state] = useContext(UserDataContext)
+    const { favorites: state } = useFavorite()
     if (!state) return null; 
 
     const filtered = search 
     ? state.favorites.filter(book => 
         search && book.title.toLowerCase().includes(search.toLowerCase())
     )
-    : state.favorites
+    : state
     
 
 

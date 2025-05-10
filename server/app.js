@@ -21,7 +21,6 @@ app.use(errorHandler);
 app.use("/api/books", require("./controllers/books.js"));
 app.use("/api/users", require("./controllers/users.js"));
 app.use("/api/login", require("./controllers/login.js"));
-app.use("/api/feedbacks", require("./controllers/feedbacks.js"));
 
 app.get("/", (req, res) => {
   res.send("Welcome to the Bookstore API");

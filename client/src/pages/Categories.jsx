@@ -17,9 +17,8 @@ const Button = ({ text, isActive, onClick }) => {
 
 const Categories = () => {
     const [activeCategory, setActiveCategory] = useState('All');
-    const { mostDownloads, mostPopular, isLoading, isError } = useBooks(activeCategory.toLowerCase());
+    const { mostDownloads, mostPopular, topRated, trending, newReleases, shortReads, isLoading, isError } = useBooks(activeCategory.toLowerCase());
 
-    if (isLoading) return <Loading />;
     if (isError) return null;
 
     const categories = [
@@ -31,7 +30,10 @@ const Categories = () => {
     const subcategories = [
         ["Most Downloaded", mostDownloads],
         ["Most Popular", mostPopular],
-        // Add more categories as needed
+        ["Top Rated", topRated],
+        ["Trending", trending],
+        ["New Releases", newReleases],
+        ["Short Reads", shortReads]
     ];
 
     return (
@@ -46,12 +48,12 @@ const Categories = () => {
                     />
                 ))}
             </div>
-
+            {isLoading && <Loading />}
             <div>
                 {subcategories.map(([name, data]) => (
-                    <div className="border-b border-roseWater last:border-none pl-3" key={name}>
+                    <div className="border-b border-rosewater last:border-none p-3" key={name}>
                         <h2 className="font-bold text-xl py-5">{name}</h2>
-                        <div className="flex gap-3 pl-3 overflow-x-auto">
+                        <div className="flex gap-5 pl-3 overflow-x-auto">
                             {data.map(book => (
                                 <Book key={book.id} book={book} />
                             ))}

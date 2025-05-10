@@ -6,7 +6,7 @@ const Home = ({ books }) => {
     return (
         <div>
            
-            {/* <Hero /> */}
+            <Hero />
             {/* <section className="py-16 px-6 bg-rosewater text-center">
           <div className="max-w-6xl mx-auto grid gap-10 sm:grid-cols-3">
             {[

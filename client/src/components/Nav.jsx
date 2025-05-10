@@ -1,5 +1,8 @@
 import { useReducer, useContext, useState, useEffect } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
+import { useSelector, useDispatch } from 'react-redux';
+import { clearUser } from "../store/slices/userSlice";
+
 
 const NavLinks = ({ navDispatch }) => {
   const location = useLocation();
@@ -7,17 +10,13 @@ const NavLinks = ({ navDispatch }) => {
   const handleLinkClick = () => {
     navDispatch({ type: "HIDE" });  // Hide the menu when any link is clicked
   };
-  const userData = true
 
   return (
     <div className="flex flex-col sm:flex-row sm:items-center gap-10 text-3xl font-mono font-semibold pl-5 *:hover:text-hotpink sm:gap-5 *md:text-md *:sm:text-sm *:lg:text-lg z-60 sm:font-sans">
       <Link to="/" className={`${location.pathname === '/' ? 'text-hotpink' : ''}`} onClick={handleLinkClick}>Home</Link>
       <Link to="/favorite" className={`${location.pathname === '/favorite' ? 'text-hotpink' : ''}`} onClick={handleLinkClick}>Favorites</Link>
-      <Link to="/orders" className={`${location.pathname === '/orders' ? 'text-hotpink' : ''}`} onClick={handleLinkClick}>My Orders</Link>
-      <Link to="/about" className={`sm:hidden ${location.pathname === '/about' ? 'text-hotpink' : ''}`} onClick={handleLinkClick}>About</Link>
-      <Link to="/contact" className={`sm:hidden ${location.pathname === '/contact' ? 'text-hotpink' : ''}`} onClick={handleLinkClick}>Contact</Link>
-      {userData.merchant && <Link to="/merchant/books" className={`${location.pathname === '/merchant/books' ? 'text-hotpink' : ''}`} onClick={handleLinkClick}>Manage books</Link>}
-      {!userData.merchant && <Link to="/merchant/be" className={`${location.pathname === '/merchant/be' ? 'text-hotpink' : ''}`} onClick={handleLinkClick}>Be a merchant</Link>}
+      <Link to="/about" className={`${location.pathname === '/about' ? 'text-hotpink' : ''}`} onClick={handleLinkClick}>About</Link>
+      
     </div>
   );
 };
@@ -29,7 +28,7 @@ const UserMenu = ({ user, dispatch }) => {
         {user.name.trim()[0]}
       </div>
       <p className="text-center border-b border-rosewater pb-2 font-bold text-2xl">{user.name}</p>
-      <button className="hover:cursor-pointer font-semibold" onClick={() => dispatch({ type: 'RESET' })}>
+      <button className="hover:cursor-pointer font-semibold" onClick={() => dispatch(clearUser())}>
         Log out
       </button>
     </div>
@@ -37,10 +36,13 @@ const UserMenu = ({ user, dispatch }) => {
 };
 
 const Nav = () => {
-  const user = true
   const [userData, setUserData] = useState(false);
   const navigate = useNavigate();
   const [scroll, setScroll] = useState(false);
+  const user = useSelector(state => state.user);
+console.log('Current user from store:', user);
+const dispatch = useDispatch();
+
 
   useEffect(() => {
     const handleScroll = () => setScroll(window.scrollY > 0);
@@ -59,7 +61,7 @@ const Nav = () => {
         return state;
     }
   };
-
+  
   const [nav, navDispatch] = useReducer(navReducer, false);
 
   return (
@@ -79,7 +81,7 @@ const Nav = () => {
               <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25H12" />
             </svg>
           )}
-          <p className="text-xl sm:text-2xl font-bold font-playwrite">FreePage</p>
+          <p onClick={() => navigate('/')} className="text-xl sm:text-2xl font-bold font-playwrite">FreePage</p>
         </div>
 
         <div className="hidden mx-auto sm:block *:font-bold">
@@ -95,24 +97,12 @@ const Nav = () => {
 
           {!user && (
             <Link to="/login">
-              <button className="bg-stone-900 text-white p-1.5 rounded-4xl w-22 font-serif hover:cursor-pointer">Log in</button>
+              <button className="bg-hotpink text-white p-1.5 rounded-4xl w-22 sm:w-30 font-serif hover:cursor-pointer">Log in</button>
             </Link>
           )}
 
           {user && (
             <div className="flex gap-2 sm:gap-5">
-              <svg
-                onClick={() => navigate("/cart")}
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={1.5}
-                stroke="currentColor"
-                className="size-7 hover:cursor-pointer"
-              >
-                <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 10.5V6a3.75 3.75 0 1 0-7.5 0v4.5m11.356-1.993 1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 0 1-1.12-1.243l1.264-12A1.125 1.125 0 0 1 5.513 7.5h12.974c.576 0 1.059.435 1.119 1.007ZM8.625 10.5a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm7.5 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
-              </svg>
-
               <svg
                 onClick={() => setUserData(!userData)}
                 xmlns="http://www.w3.org/2000/svg"
@@ -153,7 +143,7 @@ const Nav = () => {
         </div>
       )}
 
-      {userData && user && <UserMenu user={user} dispatch={dispatch} />}
+      {userData && user && <UserMenu user={user} dispatch={dispatch}/>}
     </div>
   );
 };

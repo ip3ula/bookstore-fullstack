@@ -1,51 +1,46 @@
-import { useEffect, useState, useContext } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useMutation } from '@tanstack/react-query';
-import { login } from "../API/login";
+import { useLogin } from "../hooks/useLogin";
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [, dispatch] = useContext(UserContext);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
   
-  const mutation = useMutation({
-    mutationFn: login,
-    onSuccess: (data) => {
-      dispatch({
-        type: 'SET',
-        payload: data
-      });
-      navigate("/");
-    },
-    onError: (err) => {
-      setError(err.message || "Login failed");
-    },
-  });
+  const { mutate, isError } = useLogin()
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    mutation.mutate({ email, password });
+    console.log(email)
+    mutate({ email, password });
+    if (isError) {
+      setError('Invalid email or password');
+      setTimeout(() => {
+        setError(null);
+      }, 3000);
+      setEmail('');
+      setPassword('');
+      return;
+    }
   };
 
   return (
-    <div className="min-h-screen bg-spearmint flex flex-col items-center justify-center px-4 py-10">
+    <div className="bg-spearmint flex flex-col items-center justify-center px-8 min-h-[calc(100vh-60px)]">
       <h1
-        onClick={() => navigate('/')}
-        className="font-playwrite font-bold text-4xl text-center cursor-pointer my-10"
+        className="font-playwrite font-bold text-4xl text-center cursor-pointer mb-5"
       >
         book store
       </h1>
       <h2 className="text-stone-500 text-lg mb-4 text-center">Sign in to book store</h2>
       {error && <p className="text-red-500 text-sm mb-4">{error}</p>}
-
+  
       <form
-        className="flex flex-col gap-4 w-full max-w-sm"
+        className="flex flex-col gap-5 w-full max-w-sm mt-15"
         onSubmit={handleSubmit}
       >
         <input
-          className="border-2 rounded-3xl py-2 px-4 border-rosewater focus:outline-none text-sm font-mono"
+          className="border-2 rounded-3xl py-3 px-4 border-rosewater focus:outline-none text-sm font-mono"
           type="email"
           placeholder="Email"
           value={email}
@@ -53,7 +48,7 @@ const Login = () => {
           required
         />
         <input
-          className="border-2 rounded-3xl py-2 px-4 border-rosewater focus:outline-none text-sm font-mono"
+          className="border-2 rounded-3xl py-3 px-4 border-rosewater focus:outline-none text-sm font-mono"
           type="password"
           placeholder="Password"
           value={password}
@@ -61,7 +56,7 @@ const Login = () => {
           required
         />
         <button
-          className="bg-hotpink text-white h-10 rounded-3xl mt-4 hover:opacity-90 transition"
+          className="bg-hotpink text-white h-12 rounded-3xl mt-10 hover:opacity-90 transition"
           type="submit"
         >
           Login

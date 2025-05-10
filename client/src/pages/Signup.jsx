@@ -22,20 +22,19 @@ const Signup = () => {
   }
 
   return (
-    <div className="min-h-screen bg-spearmint flex flex-col items-center justify-center px-4 py-10">
+    <div className="min-h-[calc(100vh-60px)] bg-spearmint flex flex-col items-center justify-center px-8 ">
       <h1
-        className="font-playwrite font-bold text-4xl text-center cursor-pointer my-10"
-        onClick={() => navigate('/')}
+        className="font-playwrite font-bold text-4xl text-center cursor-pointer mb-5"
       >
         book store
       </h1>
       <h2 className="text-stone-500 text-lg mb-4 text-center">Create Account</h2>
 
-      <form className="flex flex-col gap-4 w-full max-w-sm" onSubmit={handleSignUp}>
+      <form className="flex flex-col gap-5 w-full max-w-sm mt-15" onSubmit={handleSignUp}>
         <input
           value={name}
           onChange={(e) => setName(e.target.value)}
-          className="border-2 rounded-3xl py-2 px-4 border-rosewater focus:outline-none text-sm font-mono"
+          className="border-2 rounded-3xl py-3 px-4 border-rosewater focus:outline-none text-sm font-mono"
           type="text"
           id="name"
           name="name"
@@ -45,7 +44,7 @@ const Signup = () => {
         <input
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          className="border-2 rounded-3xl py-2 px-4 border-rosewater focus:outline-none text-sm font-mono"
+          className="border-2 rounded-3xl py-3 px-4 border-rosewater focus:outline-none text-sm font-mono"
           type="email"
           id="email"
           name="email"
@@ -55,7 +54,7 @@ const Signup = () => {
         <input
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          className="border-2 rounded-3xl py-2 px-4 border-rosewater focus:outline-none text-sm font-mono"
+          className="border-2 rounded-3xl py-3 px-4 border-rosewater focus:outline-none text-sm font-mono"
           type="password"
           id="password"
           name="password"
@@ -63,7 +62,7 @@ const Signup = () => {
           placeholder="Password"
         />
         <button
-          className="bg-hotpink text-white h-10 rounded-3xl mt-4 hover:opacity-90 transition"
+          className="bg-hotpink text-white h-12 rounded-3xl mt-10 hover:opacity-90 transition"
           type="submit"
         >
           Signup

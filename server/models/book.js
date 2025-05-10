@@ -16,24 +16,9 @@ const bookSchema = new mongoose.Schema({
     downloads: Number,
     lastReset: { type: Date, default: Date.now },
     language: String,
-    pageCount: { type: Number, default: 0 },
+    pageCount: { type: Number, default: Math.floor(Math.random() * 100) },
     addDate: { type: Date, default: Date.now },
-    subjects: [String],
-    editors: Boolean,
-    awards: Boolean,
-    rating: {
-        average: {
-            type: Number,
-            default: 0
-        },
-        count: {
-            type: Number,
-            default: 0
-        }
-    }
-    
-    
-
+    subjects: [String], 
 })
 
 bookSchema.set('toJSON', {

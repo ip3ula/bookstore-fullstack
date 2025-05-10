@@ -14,12 +14,12 @@ const Book = ({ book }) => {
   }, [book.cover]);
 
   return (
-    <div className="w-30 h-45 min-w-30 *:font-bold relative sm:scale-150">
+    <div className="w-40 min-w-40 aspect-2/3 *:font-bold relative">
       <Link to={`/books/${book.id}`}>
         {isCoverValid ? (
-          <img className="w-30 h-45 rounded-md" src={book.cover} />
+          <img className="w-40 aspect-2/3 rounded-md" src={book.cover} />
         ) : (
-          <div className="w-30 h-45 rounded-md bg-rosewater flex items-center justify-center p-2 text-center font-bold">
+          <div className="w-40 aspect-2/3 rounded-md bg-rosewater flex items-center justify-center p-2 text-center font-bold">
             <p>{book.title}</p>
           </div>
         )}
@@ -31,7 +31,7 @@ const Book = ({ book }) => {
             ? console.log("already in favorites")
             : console.log("added to favorites");
         }}
-        className={`size-7 absolute top-2 ml-21 rounded p-1 ${
+        className={`size-9 absolute top-2 right-2 rounded p-1 ${
           find
             ? "bg-spearmint text-stone-900 fill-stone-900"
             : "bg-hotpink text-white"
