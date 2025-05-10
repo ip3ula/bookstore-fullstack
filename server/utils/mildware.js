@@ -31,25 +31,27 @@ const tokenExtractor = (req, res, next) => {
 };
 
 const userExtractor = async (req, res, next) => {
-  const token = req.token;
-
-  if (!token) {
-    return res.status(401).json({ error: 'token missing' });
-  }
-
-  try {
-    const decodedToken = jwt.verify(token, config.SECRET);
-
-    if (!decodedToken.id) {
-      return res.status(401).json({ error: 'invalid token' });
+    const token = req.token;
+  
+    if (!token) {
+      req.user = null;
+      return next();
     }
-
-    req.user = await User.findById(decodedToken.id);
-    next();
-  } catch (err) {
-    next(err);
-  }
-};
+  
+    try {
+      const decodedToken = jwt.verify(token, config.SECRET);
+  
+      if (!decodedToken.id) {
+        return res.status(401).json({ error: 'invalid token' });
+      }
+  
+      req.user = await User.findById(decodedToken.id);
+      next();
+    } catch (err) {
+      next(err);
+    }
+  };
+  
 
 module.exports = {
   errorHandler,
